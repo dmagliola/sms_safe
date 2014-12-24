@@ -5,7 +5,7 @@ require "sms_safe/version"
 Gem::Specification.new do |s|
   s.name        = 'sms_safe'
   s.version     = '0.1.0'
-  s.summary     = "Keep your ActionTexter SMS messages from escaping into the wild during development."
+  s.summary     = "Keep your SMS messages from escaping into the wild during development."
   s.description = %q{SmsSafe provides a safety net while you're developing an application that uses ActionTexter
                           or other gems to send SMS. It keeps SMS messages from escaping into the wild.
 
@@ -27,6 +27,8 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = ">= 1.9.3"
 
+  s.add_runtime_dependency "mail"
+
   s.add_development_dependency "bundler"
   s.add_development_dependency "rake"
 
@@ -36,6 +38,11 @@ Gem::Specification.new do |s|
   # s.add_development_dependency "mocha"
   # s.add_development_dependency "shoulda"
   # s.add_development_dependency "simplecov"
+
+  # All the Gems we integrate with, to be able to test the hooks
+  # s.add_development_dependency "action_texter"
+  # s.add_development_dependency "twilio"
+  # s.add_development_dependency "nexmo"
 
   # s.add_development_dependency "appraisal"
   # s.add_development_dependency "coveralls"
