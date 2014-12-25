@@ -7,3 +7,13 @@ rvm:
   - "2.1.3"
   - "2.1.5"
   # Test in all the platforms that "mail" (our main dependency) tests on
+
+gemfile:
+  - gemfiles/mail_2_6_3.gemfile
+  - gemfiles/mail_2_6_1.gemfile
+  - gemfiles/mail_2_5_4.gemfile
+  - gemfiles/mail_2_5_3.gemfile
+  - gemfiles/mail_2_4_4.gemfile
+  - gemfiles/mail_2_3_3.gemfile
+  - gemfiles/mail_2_3_0.gemfile
+  - gemfiles/mail_2_2_19.gemfile
