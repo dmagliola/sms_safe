@@ -39,9 +39,9 @@ Gem::Specification.new do |s|
   s.add_development_dependency "simplecov"
 
   # All the Gems we integrate with, to be able to test the hooks
-  # s.add_development_dependency "action_texter"
-  # s.add_development_dependency "twilio"
-  # s.add_development_dependency "nexmo"
+  s.add_development_dependency "action_texter"
+  s.add_development_dependency "twilio"
+  s.add_development_dependency "nexmo"
 
   s.add_development_dependency "appraisal"
   s.add_development_dependency "coveralls"
