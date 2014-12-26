@@ -75,7 +75,23 @@ module SmsSafe
 
     # Sends an e-mail to the specified address, instead of
     def email(message)
-      # TODO!
+      message_body = <<-EOS
+This email was originally an SMS that SmsSafe intercepted:
+
+From: #{message.from}
+To: #{message.to}
+Text: #{message.text}
+
+Full object: #{message.original_message.inspect}
+      EOS
+
+      mail = Mail.new do
+        from     email_recipient(message)
+        to       email_recipient(message)
+        subject  'SmsSafe: #{message.to} - #{message.text}'
+        body     message_body
+      end
+      mail.deliver!
 
       # Must return nil to stop the sending
       nil
