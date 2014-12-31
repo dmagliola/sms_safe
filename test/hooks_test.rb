@@ -1,5 +1,4 @@
 require_relative "test_helper"
-require "sms_safe"
 require "action_texter"
 require "nexmo"
 require "twilio"
@@ -8,13 +7,13 @@ require "twilio"
 #   that will and will not get intercepted, and check that that actually happens.
 class HooksTest < MiniTest::Test
   context "With a basic configuration for SmsSafe" do
-    should "Hook ActionTexter" do
+    should "hook ActionTexter" do
       assert_equal true, "Unimplemented"
     end
-    should "Hook Nexmo" do
+    should "hook Nexmo" do
       assert_equal true, "Unimplemented"
     end
-    should "Hook Twilio" do
+    should "hook Twilio" do
       assert_equal true, "Unimplemented"
     end
   end

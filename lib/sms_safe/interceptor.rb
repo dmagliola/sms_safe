@@ -1,3 +1,5 @@
+require 'mail'
+
 module SmsSafe
 
   # When a message is intercepted, Interceptor decides whether we need to do anything with it,
@@ -28,7 +30,7 @@ module SmsSafe
       internal_recipient = matching_rules.any? do |rule|
         case rule
           when String then message.to == rule
-          when Regexp then !!(message.to =~ internal_address_definition)
+          when Regexp then !!(message.to =~ rule)
           when Proc   then rule.call(message)
           else
             raise InvalidConfigSettingError.new("Ensure internal_phone_numbers is a String, a Regexp or a Proc (or an array of them). It was: #{SmsSafe.configuration.internal_phone_numbers.inspect}")
@@ -85,9 +87,11 @@ Text: #{message.text}
 Full object: #{message.original_message.inspect}
       EOS
 
+      recipient = email_recipient(message)
+
       mail = Mail.new do
-        from     email_recipient(message)
-        to       email_recipient(message)
+        from     recipient
+        to       recipient
         subject  'SmsSafe: #{message.to} - #{message.text}'
         body     message_body
       end
@@ -114,7 +118,7 @@ Full object: #{message.original_message.inspect}
     #   configuration.discard_delay is set.
     def discard
       # Delay to simulate the time it takes to talk to the external service
-      if SmsSafe.configuration.discard_delay.present?
+      if !SmsSafe.configuration.discard_delay.nil? && SmsSafe.configuration.discard_delay > 0
         delay = SmsSafe.configuration.discard_delay.to_f / 1000 # delay is specified in ms
         sleep delay
       end
