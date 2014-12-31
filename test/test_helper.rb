@@ -70,3 +70,18 @@ class TestInterceptor < SmsSafe::Interceptor
     message
   end
 end
+
+class Object
+  # Returns a hash with all the instance variables of an object.
+  # Useful for comparing equality of objects that are not designed for that
+  def instance_variables_hash
+    Hash[instance_variables.map { |name| [name, instance_variable_get(name)] } ]
+  end
+end
+
+# Some sample phone numbers to use in tests
+DEFAULT_INTERNAL_PHONE_NUMBER = '+447111222222'
+INTERNAL_PHONE_NUMBERS = ['+447111222221', '+447111222222', '+447111222223']
+INTERNAL_PHONE_NUMBERS_REGEX = /\+44711122222\d/
+INTERNAL_PHONE_NUMBERS_PROC = Proc.new { |m| m.to.start_with?('+447111') && ['1','2','3'].include?(m.to[-1]) }
+EXTERNAL_PHONE_NUMBERS = ["+447222333444", "+13125556666"]

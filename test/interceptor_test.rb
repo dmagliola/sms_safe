@@ -1,11 +1,5 @@
 require_relative "test_helper"
 
-DEFAULT_INTERNAL_PHONE_NUMBER = '+447111222222'
-INTERNAL_PHONE_NUMBERS = ['+447111222221', '+447111222222', '+447111222223']
-INTERNAL_PHONE_NUMBERS_REGEX = /\+44711122222\d/
-INTERNAL_PHONE_NUMBERS_PROC = Proc.new { |m| m.to.start_with?('+447111') && ['1','2','3'].include?(m.to[-1]) }
-EXTERNAL_PHONE_NUMBERS = ["+447222333444", "+13125556666"]
-
 class InterceptorTest < MiniTest::Test
   context "With a Base Interceptor" do
     setup do
@@ -115,7 +109,7 @@ class InterceptorTest < MiniTest::Test
         result = @interceptor.process_message(@external_message)
         refute_nil result
         assert_equal SmsSafe::Message, result.class
-        assert_operator original_message.text.length, :<=, result.text.length # Message length must have increased
+        assert_operator original_message.text.length, :<, result.text.length # Message length must have increased
         assert_match original_message.text, result.text # New message must include the original one
         refute_equal original_message.to, result.to # Recipient must have changed
         assert_equal SmsSafe.configuration.redirect_target, result.to # Recipient must be redirect target
