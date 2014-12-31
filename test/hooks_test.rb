@@ -9,10 +9,13 @@ require "twilio"
 class HooksTest < MiniTest::Test
   context "With a basic configuration for SmsSafe" do
     should "Hook ActionTexter" do
+      assert_equal true, "Unimplemented"
     end
     should "Hook Nexmo" do
+      assert_equal true, "Unimplemented"
     end
     should "Hook Twilio" do
+      assert_equal true, "Unimplemented"
     end
   end
 end
