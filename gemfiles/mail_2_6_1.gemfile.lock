@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/mstycom/action_texter.git
+  revision: 75dea6a6dffe3e69082f1e2b50403f0e6c567119
+  specs:
+    action_texter (0.2.0)
+
 PATH
   remote: ../
   specs:
@@ -7,7 +13,6 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    action_texter (0.1.0)
     activesupport (4.2.0)
       i18n (~> 0.7)
       json (~> 1.7, >= 1.7.7)
@@ -78,7 +83,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  action_texter
+  action_texter (= 0.2.0)!
   appraisal
   bundler
   codeclimate-test-reporter
