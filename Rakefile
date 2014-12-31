@@ -9,3 +9,7 @@ Rake::TestTask.new do |t|
 end
 
 task :default => :test
+
+require 'coveralls/rake/task'
+Coveralls::RakeTask.new
+task :test_with_coveralls => ["test", "coveralls:push"]

@@ -1,12 +1,10 @@
 require "rubygems"
 
 require "simplecov"
+require "coveralls"
 SimpleCov.start do
   add_filter "/test/"
 end
-
-require "coveralls"
-Coveralls.wear!
 
 require "codeclimate-test-reporter"
 CodeClimate::TestReporter.start
