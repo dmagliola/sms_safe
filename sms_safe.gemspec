@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = ">= 1.9.3"
 
-  s.add_runtime_dependency "mail"
+  s.add_runtime_dependency "mail", '>= 2.4'
 
   s.add_development_dependency "bundler"
   s.add_development_dependency "rake"

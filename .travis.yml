@@ -14,8 +14,5 @@ gemfile:
   - gemfiles/mail_2_5_4.gemfile
   - gemfiles/mail_2_5_3.gemfile
   - gemfiles/mail_2_4_4.gemfile
-  - gemfiles/mail_2_3_3.gemfile
-  - gemfiles/mail_2_3_0.gemfile
-  - gemfiles/mail_2_2_19.gemfile
 
 script: bundle exec rake test_with_coveralls

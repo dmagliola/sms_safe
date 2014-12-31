@@ -2,7 +2,7 @@ PATH
   remote: ../
   specs:
     sms_safe (0.1.0)
-      mail
+      mail (>= 2.4)
 
 GEM
   remote: https://rubygems.org/
