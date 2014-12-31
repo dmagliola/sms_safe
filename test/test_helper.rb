@@ -16,6 +16,7 @@ MiniTest::Reporters.use!
 require "shoulda"
 require "shoulda-context"
 require "shoulda-matchers"
+require "mocha/setup"
 
 # Make the code to be tested easy to load.
 $LOAD_PATH.unshift(File.dirname(__FILE__))

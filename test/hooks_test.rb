@@ -57,8 +57,47 @@ class HooksTest < MiniTest::Test
     end
 
     should "hook Nexmo" do
-      assert_equal true, "Unimplemented"
+      nexmo = Nexmo::Client.new(key: "blah", secret: "bleh")
+      SmsSafe.hook!(:nexmo)
+
+      # Stub the "post" method so that it doesn't actually do a post
+      # I'm doing that instead of stubbing "send_message", since we're already monkeypatching send_message, and I don't want those two to collide
+      nexmo.expects(:post).never
+
+      # Try to send an external message
+      result = nexmo.send_message(from: DEFAULT_INTERNAL_PHONE_NUMBER, to: EXTERNAL_PHONE_NUMBERS.first, text: 'Foo')
+
+      # Check that return is nil and that nothing got sent
+      assert_nil result
+
+      # Change configuration to redirect
+      SmsSafe.configuration.intercept_mechanism = :redirect
+
+      # Stub again so that it validates the parameters we want
+      nexmo.expects(:post).
+          once.
+          with() { |path, params| params[:to] == DEFAULT_INTERNAL_PHONE_NUMBER && params[:text].length > 'Foo'.length && params[:text].include?('Foo') }.
+          returns({ 'messages' => ['status' => 0, 'message-id' => '123456']})
+
+      # Try to send an external message
+      result = nexmo.send_message(from: DEFAULT_INTERNAL_PHONE_NUMBER, to: EXTERNAL_PHONE_NUMBERS.first, text: 'Foo')
+
+      # Check that return is appropriate. The rest got checked in the stub
+      refute_nil result
+
+      # Stub again so that it validates the parameters we want
+      nexmo.expects(:post).
+          once.
+          with() { |path, params| params[:to] == INTERNAL_PHONE_NUMBERS.last && params[:text] = 'Foo' }.
+          returns({ 'messages' => ['status' => 0, 'message-id' => '123456']})
+
+      # Try to send an internal message
+      result = nexmo.send_message(from: DEFAULT_INTERNAL_PHONE_NUMBER, to: INTERNAL_PHONE_NUMBERS.last, text: 'Foo')
+
+      # Check that it got delivered. The rest got checked in the stub
+      refute_nil result
     end
+
     should "hook Twilio" do
       assert_equal true, "Unimplemented"
     end

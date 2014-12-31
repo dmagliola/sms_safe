@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "minitest"
   s.add_development_dependency "minitest-reporters"
   s.add_development_dependency "shoulda"
-  # s.add_development_dependency "mocha"
+  s.add_development_dependency "mocha"
   s.add_development_dependency "simplecov"
 
   # All the Gems we integrate with, to be able to test the hooks
