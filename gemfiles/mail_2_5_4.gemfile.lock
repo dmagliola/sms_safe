@@ -42,6 +42,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    metaclass (0.0.4)
     mime-types (1.25.1)
     minitest (5.5.0)
     minitest-reporters (1.0.8)
@@ -49,6 +50,8 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
+    mocha (1.1.0)
+      metaclass (~> 0.0.1)
     multi_json (1.10.1)
     multi_xml (0.5.5)
     netrc (0.10.2)
@@ -96,6 +99,7 @@ DEPENDENCIES
   mail (= 2.5.4)
   minitest
   minitest-reporters
+  mocha
   nexmo
   rake
   shoulda
