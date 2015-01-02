@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/mstycom/action_texter.git
-  revision: 75dea6a6dffe3e69082f1e2b50403f0e6c567119
+  revision: f9126d9755bcbb13fe09a5449417390bbda82c8f
   specs:
     action_texter (0.2.0)
 
@@ -13,19 +13,33 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (4.2.0)
-      i18n (~> 0.7)
-      json (~> 1.7, >= 1.7.7)
-      minitest (~> 5.1)
-      thread_safe (~> 0.3, >= 0.3.4)
-      tzinfo (~> 1.1)
+    actionmailer (3.1.12)
+      actionpack (= 3.1.12)
+      mail (~> 2.4.4)
+    actionpack (3.1.12)
+      activemodel (= 3.1.12)
+      activesupport (= 3.1.12)
+      builder (~> 3.0.0)
+      erubis (~> 2.7.0)
+      i18n (~> 0.6)
+      rack (~> 1.3.6)
+      rack-cache (~> 1.2)
+      rack-mount (~> 0.8.2)
+      rack-test (~> 0.6.1)
+      sprockets (~> 2.0.4)
+    activemodel (3.1.12)
+      activesupport (= 3.1.12)
+      builder (~> 3.0.0)
+      i18n (~> 0.6)
+    activesupport (3.1.12)
+      multi_json (~> 1.0)
     ansi (1.4.3)
     appraisal (1.0.2)
       bundler
       rake
       thor (>= 0.14.0)
-    builder (3.2.2)
-    codeclimate-test-reporter (0.4.3)
+    builder (3.0.4)
+    codeclimate-test-reporter (0.4.4)
       simplecov (>= 0.7.1, < 1.0.0)
     coveralls (0.7.1)
       multi_json (~> 1.3)
@@ -34,8 +48,9 @@ GEM
       term-ansicolor
       thor
     docile (1.1.5)
+    erubis (2.7.0)
+    hike (1.2.3)
     i18n (0.7.0)
-    json (1.8.1)
     jwt (1.0.0)
     mail (2.4.4)
       i18n (>= 0.4.0)
@@ -55,6 +70,13 @@ GEM
     netrc (0.10.2)
     nexmo (2.0.0)
     polyglot (0.3.5)
+    rack (1.3.10)
+    rack-cache (1.2)
+      rack (>= 0.4)
+    rack-mount (0.8.3)
+      rack (>= 1.0.0)
+    rack-test (0.6.2)
+      rack (>= 1.0)
     rake (10.4.2)
     rest-client (1.7.2)
       mime-types (>= 1.16, < 3.0)
@@ -71,10 +93,14 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
+    sprockets (2.0.5)
+      hike (~> 1.2)
+      rack (~> 1.0)
+      tilt (~> 1.1, != 1.3.0)
     term-ansicolor (1.3.0)
       tins (~> 1.0)
     thor (0.19.1)
-    thread_safe (0.3.4)
+    tilt (1.4.1)
     tins (1.3.3)
     treetop (1.4.15)
       polyglot
@@ -83,14 +109,14 @@ GEM
       builder (>= 2.1.2)
       jwt (~> 1.0.0)
       multi_json (>= 1.3.0)
-    tzinfo (1.2.2)
-      thread_safe (~> 0.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   action_texter (= 0.2.0)!
+  actionmailer (= 3.1.12)
+  activesupport (= 3.1.12)
   appraisal
   bundler
   codeclimate-test-reporter
