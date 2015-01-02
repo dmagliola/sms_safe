@@ -23,7 +23,7 @@ module SmsSafe
       def redirect(message)
         original_message = message.original_message
         original_message[:to] = redirect_phone_number(message)
-        original_message[:text] = redirect_text(message)
+        original_message[:body] = redirect_text(message)
         original_message
       end
     end

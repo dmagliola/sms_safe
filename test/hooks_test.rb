@@ -1,7 +1,7 @@
 require_relative "test_helper"
 require "action_texter"
 require "nexmo"
-require "twilio"
+require "twilio-ruby"
 
 # These are the real integration tests. Each one of these installs the hook, then tried sending an SMS
 #   that will and will not get intercepted, and check that that actually happens.
@@ -99,7 +99,51 @@ class HooksTest < MiniTest::Test
     end
 
     should "hook Twilio" do
-      assert_equal true, "Unimplemented"
+      twilio = Twilio::REST::Client.new 'blah', 'bleh'
+      SmsSafe.hook!(:twilio)
+
+      # Stub the "post" method so that it doesn't actually do a post
+      # I'm doing that instead of stubbing "send_message", since we're already monkeypatching send_message, and I don't want those two to collide
+      twilio.expects(:post).never
+
+      # Try to send an external message
+      result = twilio.messages.create(from: DEFAULT_INTERNAL_PHONE_NUMBER, to: EXTERNAL_PHONE_NUMBERS.first,  body: 'Foo')
+
+      # Check that return is nil and that nothing got sent
+      assert_nil result
+
+      # Change configuration to redirect
+      SmsSafe.configuration.intercept_mechanism = :redirect
+
+      # Stub again so that it validates the parameters we want
+      twilio.expects(:post).
+          once.
+          with() { |path, params| params[:to] == DEFAULT_INTERNAL_PHONE_NUMBER && params[:body].length > 'Foo'.length && params[:body].include?('Foo') }.
+          returns({ 'sid' => 'Message01'})
+
+      # Try to send an external message
+      result = twilio.messages.create(from: DEFAULT_INTERNAL_PHONE_NUMBER, to: EXTERNAL_PHONE_NUMBERS.first, body: 'Foo')
+
+      # Check that return is appropriate. The rest got checked in the stub
+      refute_nil result
+
+      # Stub again so that it validates the parameters we want
+      twilio.expects(:post).
+          once.
+          with() { |path, params| params[:to] == INTERNAL_PHONE_NUMBERS.last && params[:body] = 'Foo' }.
+          returns({ 'sid' => 'Message01'})
+
+      # Try to send an internal message
+      result = twilio.messages.create(from: DEFAULT_INTERNAL_PHONE_NUMBER, to: INTERNAL_PHONE_NUMBERS.last, body: 'Foo')
+
+      # Check that it got delivered. The rest got checked in the stub
+      refute_nil result
+    end
+
+    should "raise if hooking an invalid library" do
+      assert_raises(SmsSafe::InvalidConfigSettingError) do
+        SmsSafe.hook!(:invalid)
+      end
     end
   end
 end

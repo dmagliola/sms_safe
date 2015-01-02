@@ -34,7 +34,19 @@ module SmsSafe
   end
 
   def self.hook_twilio!
-    # TODO: Monkeypatch Twilio::REST::Message#create
-    raise "Unimplemented!"
+    Twilio::REST::Messages.class_eval do
+      # There is no method to alias, the gem relies on method_missing on a base class...
+      #alias_method :sms_safe_original_send_message, :send_message
+
+      def create(params)
+        interceptor = SmsSafe::Interceptors::Twilio.new
+        new_message = interceptor.process_message(params)
+        if new_message.nil?
+          return new_message
+        else
+          return super(new_message)
+        end
+      end
+    end
   end
 end
