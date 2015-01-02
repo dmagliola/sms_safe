@@ -36,7 +36,7 @@ module SmsSafe
     # If you are doing stress testing, you don't want to send out millions of SMS or Emails, so discarding is the
     #   way to go. However, this may give you an unrealistic view of how many SMS you can send per minute, distorting
     #   the results of the stress test. Discard delay introduces a little `sleep` whilst discarding, to compensate for that.
-    # Defaults to 100ms
+    # Defaults to 50ms
     # Specify it in ms
     attr_accessor :discard_delay
 
