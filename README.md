@@ -107,19 +107,19 @@ a real load, your queue workers can keep up with the demand.
 
 SmsSafe can currently hook into the following texter gems:
 
-- **(ActionTexter)[https://rubygems.org/gems/action_texter]**
-- (Nexmo)[https://rubygems.org/gems/nexmo]
-- (Twilio Ruby)[https://rubygems.org/gems/twilio-ruby]
+- **[ActionTexter](https://rubygems.org/gems/action_texter)**
+- [Nexmo](https://rubygems.org/gems/nexmo)
+- [Twilio Ruby](https://rubygems.org/gems/twilio-ruby)
 
 Of these 3, ActionTexter is the only one that provides useful functionality for automated testing,
 and functionality for interceptors / observers. It also works natively with both Twilio and Nexmo,
 so we recommend it extensively.
 
 For Nexmo and Twilio Ruby, unfortunately, the way we hook is by monkey-patching them. This works,
-but it's not ideal, so we recommend using ActionTexter if you come.
+but it's not ideal, so we recommend using ActionTexter if you can.
 
 If you would like the SmsSafe functionality but you use another SMS provider / gem, you can add the new provider
-and submit a Pull Request (see bottom of README), add the new provider to (ActionTexter)[https://github.com/watu/action_texter],
+and submit a Pull Request (see bottom of README), add the new provider to [ActionTexter](https://github.com/watu/action_texter),
 or just ask, I'd like to extend this gem as much as possible.
 
 
