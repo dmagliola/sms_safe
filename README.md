@@ -92,6 +92,9 @@ Instead of sending the SMS, an e-mail will be sent to the address specified by `
 This is useful in dev / staging as a less annoying alternative to SMS'ing yourself, and also
 for teams, since multiple people may end up having access to the e-mail, as opposed to an SMS.
 
+You don't need to add any configuration for e-mailing to work. If you use Mail or ActionMailer, SmsSafe will
+magically use the configuration you set up for either.
+
 ### Discarding
 
 In some cases, you just don't care, you simply don't want to be notified. This is particularly useful
@@ -150,6 +153,9 @@ This gem is being used by:
 
 
 ## Changelog
+
+### Version 1.0.1 (Jan 2nd, 2015)
+- Made emails work automagically with either Mail or ActionMailer
 
 ### Version 1.0.0 (Jan 2nd, 2015)
 - Newly released gem, supports ActionTexter, Nexmo and Twilio.
