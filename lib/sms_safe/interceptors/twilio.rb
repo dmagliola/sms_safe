@@ -1,5 +1,6 @@
 module SmsSafe
   module Interceptors
+    # Interceptor class for Twilio Ruby Gem. Maps Hash params into SmsSafe::Message and back.
     class Twilio < SmsSafe::Interceptor
       # This method will be called differently for each Texter Gem, it's the one that the hook likes to call
       # In all cases, it's a one-liner that calls process_message in the superclass

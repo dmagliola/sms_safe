@@ -1,9 +1,12 @@
 module SmsSafe
   module Interceptors
+    # Interceptor class for ActionTexter Gem. Maps ActionTexter::Message into SmsSafe::Message and back.
     class ActionTexter < SmsSafe::Interceptor
       # This method will be called differently for each Texter Gem, it's the one that the hook likes to call
       # In all cases, it's a one-liner that calls process_message in the superclass
       # It could even be an alias, for all practical purposes
+      # @param [ActionTexter::Message] message that is being sent by ActionTexter gem
+      # @return [ActionTexter::Message] modified message to send, or nil to cancel send
       def delivering_sms(message)
         self.process_message(message)
       end

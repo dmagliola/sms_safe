@@ -2,6 +2,7 @@ require 'mail'
 
 module SmsSafe
 
+  # Main class with almost all the functionality.
   # When a message is intercepted, Interceptor decides whether we need to do anything with it,
   #   and does it.
   # The different adaptor classes in the Interceptors module provide mapping to each of the SMS libraries peculiarities.
@@ -76,6 +77,7 @@ module SmsSafe
     end
 
     # Sends an e-mail to the specified address, instead of
+    # @return nil, to stop the sending
     def email(message)
       message_body = <<-EOS
 This email was originally an SMS that SmsSafe intercepted:
@@ -116,6 +118,7 @@ Full object: #{message.original_message.inspect}
 
     # Discards the message. Essentially doesn't do anything. Will sleep for a bit, however, if
     #   configuration.discard_delay is set.
+    # @return nil, to stop the sending
     def discard
       # Delay to simulate the time it takes to talk to the external service
       if !SmsSafe.configuration.discard_delay.nil? && SmsSafe.configuration.discard_delay > 0

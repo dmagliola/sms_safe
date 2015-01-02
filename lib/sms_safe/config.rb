@@ -1,15 +1,19 @@
 module SmsSafe
 
+  # Thrown when a config setting is invalid
   class InvalidConfigSettingError < StandardError; end
 
+  # Returns the current configuration
   def self.configuration
     @configuration ||=  Configuration.new
   end
 
+  # Yields the current configuration, allowing the caller to modify it in a block
   def self.configure
     yield(configuration) if block_given?
   end
 
+  # Holds the configuration
   class Configuration
 
     # List of phone numbers that can accept SMS. Any phone number not on this list will get the SMS intercepted
