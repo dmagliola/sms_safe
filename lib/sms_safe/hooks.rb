@@ -1,5 +1,7 @@
 
 module SmsSafe
+
+  #TODO: Documentation!
   def self.hook!(texter_gem)
     case texter_gem
       when :action_texter
