@@ -15,7 +15,7 @@ module SmsSafe
     attr_accessor :from, :to, :text, :original_message
 
     # Set all params as internal values.
-    # Accepts :from, :to, :text and :original_message
+    # @param [Hash] attrs accepts :from, :to, :text and :original_message
     def initialize(attrs)
       attrs.each { |k, v| self.send "#{k.to_s}=".to_sym, v }
     end
