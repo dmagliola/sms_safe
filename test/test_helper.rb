@@ -28,9 +28,8 @@ include ActiveSupport::Testing::Assertions
 require "benchmark"
 
 require 'mail'
-Mail.defaults do
-  delivery_method :test
-end
+require "action_mailer"
+ActionMailer::Base.delivery_method = :test
 include Mail::Matchers
 
 require "sms_safe"

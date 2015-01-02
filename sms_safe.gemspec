@@ -29,6 +29,8 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency "mail", '>= 2.4'
 
+  s.add_development_dependency "actionmailer"
+
   s.add_development_dependency "bundler"
   s.add_development_dependency "rake"
 

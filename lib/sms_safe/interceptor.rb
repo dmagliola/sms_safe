@@ -79,28 +79,32 @@ module SmsSafe
     # Sends an e-mail to the specified address, instead of
     # @return nil, to stop the sending
     def email(message)
-      message_body = <<-EOS
-This email was originally an SMS that SmsSafe intercepted:
-
-From: #{message.from}
-To: #{message.to}
-Text: #{message.text}
-
-Full object: #{message.original_message.inspect}
-      EOS
-
       recipient = email_recipient(message)
-
+      body = email_body(message)
       mail = Mail.new do
         from     recipient
         to       recipient
-        subject  'SmsSafe: #{message.to} - #{message.text}'
-        body     message_body
+        subject  "SmsSafe: #{message.to} - #{message.text}"
+        body     body
       end
-      mail.deliver!
+      deliver_email(mail)
 
-      # Must return nil to stop the sending
-      nil
+      nil # Must return nil to stop the sending
+    end
+
+    # Delivers the email through Mail, or ActionMailer, whatever is there
+    # @param [Mail] mail to send
+    # @return [Mail] the same mail received as parameter
+    def deliver_email(mail)
+      # Ugly hack, or beautiful elegance? No idea, really...
+      # We don't want a dependency on ActionMailer, but we want our users that have ActionMailer configured
+      #   to not need to configure Mail too, so we want to take the ActionMailer configuration magically
+      #   if it's there
+      if defined?(ActionMailer)
+        ActionMailer::Base.wrap_delivery_behavior(mail)
+      end
+
+      mail.deliver!
     end
 
     # Decides which email address to send the SMS to
@@ -114,6 +118,21 @@ Full object: #{message.original_message.inspect}
         else
           raise InvalidConfigSettingError.new("Ensure email_target is a String or a Proc. It was: #{SmsSafe.configuration.email_target.inspect}")
       end
+    end
+
+    # Returns the Body for the e-mail that we'll send
+    # @param [Message] message the message we are emailing
+    # @return [String] the email body
+    def email_body(message)
+      <<-EOS
+This email was originally an SMS that SmsSafe intercepted:
+
+From: #{message.from}
+To: #{message.to}
+Text: #{message.text}
+
+Full object: #{message.original_message.inspect}
+      EOS
     end
 
     # Discards the message. Essentially doesn't do anything. Will sleep for a bit, however, if
