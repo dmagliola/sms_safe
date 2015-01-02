@@ -8,9 +8,9 @@ module SmsSafe
   class Interceptor
 
     # Method called by all the sub-classes to process the SMS being sent
-    # @param [Object] message the message we intercepted from the texter gem. May be of varying types, depending
+    # @param [Object] original_message the message we intercepted from the texter gem. May be of varying types, depending
     #   on which texter gem is being used.
-    # @returns [Object] the message to send (if modified recipient / text), of the same type we received
+    # @return [Object] the message to send (if modified recipient / text), of the same type we received
     #   or nil if no SMS should be sent
     def process_message(original_message)
       message = convert_message(original_message)
@@ -24,7 +24,7 @@ module SmsSafe
 
     # Decides whether to intercept the message that is being sent, or to let it go through
     # @param [Message] message the message we are evaluating
-    # @returns [Boolean] whether to intercept the message (true) or let it go through (false)
+    # @return [Boolean] whether to intercept the message (true) or let it go through (false)
     def intercept_message?(message)
       matching_rules = [SmsSafe.configuration.internal_phone_numbers].flatten.compact
       internal_recipient = matching_rules.any? do |rule|
@@ -41,7 +41,7 @@ module SmsSafe
 
     # Once we've decided to intercept the message, act on it, based on the intercept_mechanism set
     # @param [Message] message the message we are evaluating
-    # @returns [Object] the message to send, of the type that corresponds to the texter gem (if :redirecting)
+    # @return [Object] the message to send, of the type that corresponds to the texter gem (if :redirecting)
     #   or nil to cancel sending (if :email or :discard)
     def intercept_message!(message)
       case SmsSafe.configuration.intercept_mechanism
@@ -55,7 +55,7 @@ module SmsSafe
 
     # Decides which phone number to redirect the message to
     # @param [Message] message the message we are redirecting
-    # @returns [String] the phone number to redirect the number to
+    # @return [String] the phone number to redirect the number to
     def redirect_phone_number(message)
       target = SmsSafe.configuration.redirect_target
       case target
@@ -70,7 +70,7 @@ module SmsSafe
     # Simply appends "(SmsSafe: original_recipient_number)", for brevity
     #
     # @param [Message] message the message we are redirecting
-    # @returns [String] the new text for the SMS
+    # @return [String] the new text for the SMS
     def redirect_text(message)
       "#{message.text} (SmsSafe: #{message.to})"
     end
@@ -103,7 +103,7 @@ Full object: #{message.original_message.inspect}
 
     # Decides which email address to send the SMS to
     # @param [Message] message the message we are emailing
-    # @returns [String] the email address to email it to
+    # @return [String] the email address to email it to
     def email_recipient(message)
       target = SmsSafe.configuration.email_target
       case target
@@ -131,7 +131,7 @@ Full object: #{message.original_message.inspect}
     # Must be overridden by each gem's interceptor
     #
     # @param [Object] message that is being sent
-    # @returns [Message] the message converted into our own Message class
+    # @return [Message] the message converted into our own Message class
     def convert_message(message)
       raise "Must override!"
     end
@@ -143,7 +143,7 @@ Full object: #{message.original_message.inspect}
     #  modify message.original_message
     #
     # @param [Message] message that is being sent, unmodified
-    # @returns [Object] modified message to send, of the type the texter gem uses
+    # @return [Object] modified message to send, of the type the texter gem uses
     def redirect(message)
       raise "Must override!"
     end

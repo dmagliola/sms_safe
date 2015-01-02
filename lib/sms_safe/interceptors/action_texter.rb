@@ -10,7 +10,7 @@ module SmsSafe
 
       # Converts an ActionTexter::Message into an SmsSafe::Message
       # @param [ActionTexter::Message] message that is being sent by ActionTexter gem
-      # @returns [Message] the message converted into our own Message class
+      # @return [Message] the message converted into our own Message class
       def convert_message(message)
         SmsSafe::Message.new(from: message.from, to: message.to, text: message.text, original_message: message)
       end
@@ -20,7 +20,7 @@ module SmsSafe
       #   to give back to the texter gem to send.
       #
       # @param [Message] message that is being sent, unmodified
-      # @returns [ActionTexter::Message] modified message to send
+      # @return [ActionTexter::Message] modified message to send
       def redirect(message)
         original_message = message.original_message
         original_message.to = redirect_phone_number(message)

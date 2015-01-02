@@ -10,7 +10,7 @@ module SmsSafe
 
       # Converts a hash of params (Twilio's call is just a hash to Client.messages) into Message
       # @param [Hash] message that is being sent by Twilio gem
-      # @returns [Message] the message converted into our own Message class
+      # @return [Message] the message converted into our own Message class
       def convert_message(message)
         SmsSafe::Message.new(from: message[:from], to: message[:to], text: message[:body], original_message: message)
       end
@@ -19,7 +19,7 @@ module SmsSafe
       #   to give back to the texter gem to send.
       #
       # @param [Message] message that is being sent, unmodified
-      # @returns [Hash] modified message to send
+      # @return [Hash] modified message to send
       def redirect(message)
         original_message = message.original_message
         original_message[:to] = redirect_phone_number(message)
