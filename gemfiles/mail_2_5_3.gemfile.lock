@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/mstycom/action_texter.git
-  revision: f9126d9755bcbb13fe09a5449417390bbda82c8f
+  revision: 47d70abf1db7063f4d2da9a732288a610c1b470b
   specs:
     action_texter (0.2.0)
 
