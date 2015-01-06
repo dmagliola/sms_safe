@@ -8,6 +8,7 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
 ]
 SimpleCov.start do
   add_filter "/test/"
+  add_filter "/gemfiles/vendor"
 end
 
 require "codeclimate-test-reporter"
