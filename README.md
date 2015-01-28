@@ -154,6 +154,9 @@ This gem is being used by:
 
 ## Changelog
 
+### Version 1.0.2 (Jan 28th, 2015)
+- Changed dependency to action_texter to point to official gem again, now it's been updated.
+
 ### Version 1.0.1 (Jan 2nd, 2015)
 - Made emails work automagically with either Mail or ActionMailer
 
