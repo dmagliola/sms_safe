@@ -1,7 +1,7 @@
 PATH
   remote: ../
   specs:
-    sms_safe (1.0.1)
+    sms_safe (1.0.2)
       mail (>= 2.4)
 
 GEM
