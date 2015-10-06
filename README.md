@@ -105,6 +105,22 @@ than a simple discard. You should set this to an average value that your SMS pro
 even if you are queueing SMS sending using Resque / DelayedJob, you can still check that, when dealing with
 a real load, your queue workers can keep up with the demand.
 
+## Using Procs for specifying whitelist or targets
+
+In some cases, you'll need a bit more sophisticated logic than just matching on the phone number.
+
+For example, in our staging environment, we want people that are signing up to receive the "verification" SMS,
+but we don't want them to accidentally SMS-invite their friends.
+
+This does the job by deciding whether to allow based on the "reference" of the original message being intercepted:
+
+    SmsSafe.configure do |config|
+      config.internal_phone_numbers = Proc.new do |message| # Return true if it can go out, false if it needs to be intercepted
+         message.original_message.reference.start_with?("phoneverif")
+      end
+      config.intercept_mechanism = :discard
+    end
+
 
 ## Supported Libraries
 
