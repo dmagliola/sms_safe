@@ -43,7 +43,7 @@ You should configure SmsSafe in the same initializer that you use for your SMS, 
 after your Texter gem has been configured.
 
 ```
-SmsSafe.configure do |config|
+SmsSafe.configuration do |config|
   config.internal_phone_numbers = ['+12223334444', '+447111222222']
   config.intercept_mechanism = :redirect
   config.redirect_target = '+12223334444'
