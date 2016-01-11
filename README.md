@@ -170,6 +170,9 @@ This gem is being used by:
 
 ## Changelog
 
+### Pending release (Date TBA)
+- Fix typo in example configuration in documentation.
+
 ### Version 1.0.2 (Jan 28th, 2015)
 - Changed dependency to action_texter to point to official gem again, now it's been updated.
 
